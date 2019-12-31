@@ -12,14 +12,15 @@ The repository provides both a command-line interface and instructions on how to
 Command-Line Interface Installation And Usage
 ---------------------------------------------
 
-###Installation
+### Installation
+
 Activate your preferred Python environment and run the following commands from the repo home directory:
 
 1. `pip install -r requirements.txt`
 2. `pip install --editable .`
 
 Once installed, interface can be used from any location on your computer.
-###Usage
+### Usage
 
 Command-line interface can be used by running the command:
 
