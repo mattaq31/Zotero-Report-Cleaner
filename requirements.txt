@@ -1,0 +1,5 @@
+requests
+click
+Flask>=1.0.2
+beautifulsoup4>=4.8.1
+lxml>=4.4.2
