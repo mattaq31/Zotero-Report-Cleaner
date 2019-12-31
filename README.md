@@ -18,12 +18,17 @@ Testing
 -------
 
 Deploying To Google Cloud Run
-----------------
-To Build:
-gcloud builds submit --tag gcr.io/**project name**/zotero_report_editor
+-----------------------------
 
-To Deploy:
-gcloud run deploy --image gcr.io/**project name**/zotero_report_editor --platform managed
+The app can also be deployed to Google Cloud Run, where the API can be exposed for use within a web app.  This can be done for free, as long as you keep within the free tier [limits](https://cloud.google.com/run/pricing).
+
+To deploy, simply create a project and enable the Cloud Build/Cloud Run APIs as described [here](https://cloud.google.com/run/docs/quickstarts/build-and-deploy).  Then, build and deploy the app by executing the following two commands at the root directory of this repo:
+
+`gcloud builds submit --tag gcr.io/**your project name**/zotero_report_editor`
+
+`gcloud run deploy --image gcr.io/**your project name**/zotero_report_editor --platform managed`
+
+Once deployed, the app has two usable URLs: *cloud_run_url*/reporteditor and *cloud_run_url*/defaults
 
 Further Development
 -------------------
