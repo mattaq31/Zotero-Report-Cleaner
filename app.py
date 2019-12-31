@@ -1,6 +1,5 @@
 import os
-
-from flask import Flask, request, redirect, url_for, jsonify
+from flask import Flask, request, redirect, jsonify
 from report_manipulator.html_manipulator import HtmlManipulator
 
 app = Flask(__name__)
