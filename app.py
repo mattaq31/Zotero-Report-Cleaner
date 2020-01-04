@@ -10,6 +10,7 @@ def index():
     return redirect('reporteditor')
 
 
+# Main interface for editing reports
 @app.route('/reporteditor', methods=['GET', 'POST'])
 def html_trigger_convert():
     if request.method == 'GET':
@@ -25,6 +26,7 @@ def html_trigger_convert():
         return str(editor.report_html), 200
 
 
+# Returns default settings for which meta-tags to remove/keep
 @app.route('/defaults', methods=['GET'])
 def return_defaults():
     if request.method == 'GET':

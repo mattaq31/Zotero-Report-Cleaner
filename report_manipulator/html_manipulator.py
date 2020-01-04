@@ -104,7 +104,7 @@ class HtmlManipulator:
                         data_container.extract()
                     elif label == 'Author' and self.one_line_authors:  # Collects authors and places them in one string
                         if authors == '':
-                            authors += '%s' % data_container.td.get_text()
+                            authors += data_container.td.get_text()
                             data_container.th.string.replace_with('Authors')
                             data_container.td['id'] = 'author'
                         else:

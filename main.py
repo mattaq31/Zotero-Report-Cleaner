@@ -6,8 +6,8 @@ from report_manipulator.html_manipulator import HtmlManipulator
 
 @click.command()
 @click.option("--enforce_one_line_authors", default=False, is_flag=True,
-              help='Specify whether authors should be left as is.'
-                   '  By default, program will arrange all authors on one line.')
+              help='Enforce keeping each author individually separated line-by-line.'
+                   '  By default, this app will arrange all authors to be placed together on one line.')
 @click.argument('report', type=click.Path(exists=True))
 @click.argument('output', type=click.Path())
 def convert(report, output, enforce_one_line_authors):

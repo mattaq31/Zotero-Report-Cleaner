@@ -7,7 +7,7 @@ What Is This?
 
 This repository contains a simple Python app which allows one to easily clean up Zotero [reports](https://www.zotero.org/support/reports#%20sort_order).  The main two features of this cleanup are the ability to cut off needless meta-information from each record and the arrangement of authors on one line (as opposed to the standard one author per line).  The resulting reports are leaner and much more practical for comparing notes and sharing research ideas.  App inspired by Jason Priem's [Zotero Report Customizer](http://jasonpriem.org/projects/report_cleaner.php).
 
-The repository provides both a command-line interface and instructions on how to deploy the app to [Google Cloud Run](https://cloud.google.com/run/).  Ready-to-go web interface (requiring no installation) also available *here*.
+The repository provides both a command-line interface and instructions on how to deploy the app to [Google Cloud Run](https://cloud.google.com/run/).  Ready-to-go web interface (coded using [JSSoup](https://www.npmjs.com/package/jssoup) and [Browserify](http://browserify.org)) also available [here](https://matthewaquilina.net/zotero_report_editor).
 
 Command-Line Interface Installation And Usage
 ---------------------------------------------
