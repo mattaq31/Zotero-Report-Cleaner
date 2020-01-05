@@ -7,7 +7,7 @@ What Is This?
 
 This repository contains a simple Python app which allows one to easily clean up Zotero [reports](https://www.zotero.org/support/reports#%20sort_order).  The main two features of this cleanup are the ability to cut off needless meta-information from each record and the arrangement of authors on one line (as opposed to the standard one author per line).  The resulting reports are leaner and much more practical for comparing notes and sharing research ideas.  App inspired by Jason Priem's [Zotero Report Customizer](http://jasonpriem.org/projects/report_cleaner.php).
 
-The repository provides both a command-line interface and instructions on how to deploy the app to [Google Cloud Run](https://cloud.google.com/run/).  Ready-to-go web interface (coded using [JSSoup](https://www.npmjs.com/package/jssoup) and [Browserify](http://browserify.org)) also available [here](https://matthewaquilina.net/zotero_report_editor).
+The repository provides both a command-line interface and instructions on how to deploy the app to [Google Cloud Run](https://cloud.google.com/run/).  Ready-to-go web interface (coded using [JSSoup](https://www.npmjs.com/package/jssoup) and [Browserify](http://browserify.org)) also available [here](https://matthewaquilina.net/zotero_report_cleaner).
 
 Command-Line Interface Installation And Usage
 ---------------------------------------------
@@ -22,7 +22,7 @@ Activate your preferred Python (3.x) environment and run the following commands 
 Once installed, the interface can be used from any location on your computer.  
 ### Usage
 
-First, generate your Zotero report directly from the Zotero app by following [this](https://www.zotero.org/support/reports#%20sort_order) guide.  Then, command-line interface can be used by running the command:
+First, generate your Zotero report directly from the Zotero app by following [this](https://www.zotero.org/support/reports#%20sort_order) guide.  Then, the command-line interface can be used by running the command:
 
 `zotero_clean REPORT OUTPUT [Options]`
 
@@ -31,21 +31,25 @@ Where:
 * `REPORT` - Location of unedited Zotero report (in one-page HTML format).
 * `OUTPUT` - Location to save final edited report (also in HTML format).
 * Adding the tag `--enforce_one_line_authors` will deactivate placing all authors on one line.
-* The default report tags to remove can be overridden by a custom tsv-format commands file, the location of which should be specified by `--commands_file`.  An example of the format of one such file is given in `examples/example_commands_config.tsv` (where a `Value` of 0 means the tag will be removed and a value of 1 means the tag will be retained within report records).
+* The default report tags to remove can be overridden by a custom tsv-format commands file, the location of which should be specified by `--commands_file`.  An example of the format of one such file is given in `examples/example_commands_config.tsv` (where a `Value` of 0 means the tag will be removed and a `Value` of 1 means the tag will be retained within report records).
 * Adding the tag `--just_remove` followed by a list of comma-separated report tags (e.g. `Journal,Abstract,URL,...`) will remove just these tags from the report.
-* Adding the tag `--also_remove` followed by a list of comma-separated report tags (e.g. `Journal,Abstract,URL,...`) will remove these tags from the report, apart from the default values.
+* Adding the tag `--also_remove` followed by a list of comma-separated report tags (e.g. `Journal,Abstract,URL,...`) will remove these tags from the report, in addition to the default values.
 * Adding the tag `--override_defaults` will save report commands used in this call as the defaults for future calls.
 
 Alternatively, the `report_manipulator` package can be imported and used directly in Python.
 
 Tested using Python 3.6+.
 
-### Example
+### Examples
 To test correct functionality, run the following command from the repo root directory which uses the provided example Zotero report:
 
 `zotero_clean examples/example_report.html examples/edited_report.html --commands_file examples/example_commands_config.tsv`
 
 This command should produce the file `edited_report.html` containing the cleaned report in the examples directory.
+
+An example of using the `just_remove` option is as follows (currently does not work with tags containing a space in their name e.g. `Book Title`):
+
+`zotero_clean examples/example_report.html examples/edited_report.html --just_remove Editor,Pages,Modified`
 
 Deploying To Google Cloud Run
 -----------------------------
