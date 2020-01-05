@@ -1,4 +1,4 @@
-Zotero Report Editor
+Zotero Report Cleaner
 ==============================
 CI here
 

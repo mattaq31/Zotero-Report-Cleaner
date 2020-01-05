@@ -1,4 +1,6 @@
 from bs4 import BeautifulSoup
+import os
+import csv
 
 
 class HtmlManipulator:
@@ -13,41 +15,8 @@ class HtmlManipulator:
         self.report_html = None
         self.output_dir = output
         self.one_line_authors = True
-        self.field_commands = {'Type': True,
-                               'Author': True,
-                               'URL': True,
-                               'Volume': False,
-                               'Pages': False,
-                               'Publication': True,
-                               'Publisher': False,
-                               'DOI': False,
-                               'Issue': False,
-                               'Extra': False,
-                               'Accessed': False,
-                               'Abstract': False,
-                               'ISSN': False,
-                               'Date': True,
-                               'Rights': False,
-                               'ISBN': False,
-                               'Short Title': False,
-                               'Conference Name': False,
-                               'Library Catalog': False,
-                               'Editor': False,
-                               'Language': False,
-                               'Website Title': False,
-                               'Loc. in Archive': False,
-                               'Archive': False,
-                               'Journal Abbr': False,
-                               'Date Added': False,
-                               'Inventor': False,
-                               'Issue Date': False,
-                               'Assignee': False,
-                               'Issuing Authority': False,
-                               'Patent Number': False,
-                               'Filing Date': False,
-                               'Application Number': False,
-                               'Country': False,
-                               'Modified': False}  # default values
+        self.commands_dir = os.path.dirname(os.path.abspath(__file__)) + "/commands_config.tsv"
+        self.field_commands = self.read_commands_config(self.commands_dir)
 
     def add_field_command(self, field: str, value: bool):
         """
@@ -79,7 +48,31 @@ class HtmlManipulator:
         :return: None
         """
         with open(self.output_dir, "w") as file:
-            file.write(str(self.report_html))
+            file.write(str(self.report_html.prettify()))
+
+    def save_commands_config(self, data: dict):
+        """
+        Saves provided commands to default configuration file.
+        :param data: Dict containing commands and their keep(1)/discard(0) value
+        :return: None
+        """
+        with open(self.commands_dir, 'w+') as f:
+            f.write('Command\tValue\n')
+            for key, val in data.items():
+                f.write('%s\t%d\n' % (key, val))
+
+    @staticmethod
+    def read_commands_config(commands_dir: str):
+        """
+        Reads commands from specified file.
+        :param commands_dir: Commands file name
+        :return: commands dict: each command is a key, with a binary value specifying whether to keep/discard said key
+        """
+        with open(commands_dir) as f:
+            reader = csv.reader(f, delimiter="\t")
+            next(reader)
+            field_commands = {rows[0]: bool(int(rows[1])) for rows in reader}
+        return field_commands
 
     def convert_html(self, data=None):
         """
