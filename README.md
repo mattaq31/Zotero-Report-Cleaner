@@ -16,25 +16,36 @@ Command-Line Interface Installation And Usage
 
 Activate your preferred Python (3.x) environment and run the following commands from the repo home directory:
 
-1. `pip install -r requirements.txt`
+1. `pip install -r requirements.txt` (The main dependencies are [`click`](https://click.palletsprojects.com/en/7.x/), [`beautifulsoup`](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) and [`lxml`](https://lxml.de))
 2. `pip install --editable .`
 
-Once installed, the interface can be used from any location on your computer.
+Once installed, the interface can be used from any location on your computer.  
 ### Usage
 
 First, generate your Zotero report directly from the Zotero app by following [this](https://www.zotero.org/support/reports#%20sort_order) guide.  Then, command-line interface can be used by running the command:
 
-`zotero_convert REPORT OUTPUT [Options]`
+`zotero_clean REPORT OUTPUT [Options]`
 
 Where:
 
 * `REPORT` - Location of unedited Zotero report (in one-page HTML format).
 * `OUTPUT` - Location to save final edited report (also in HTML format).
 * Adding the tag `--enforce_one_line_authors` will deactivate placing all authors on one line.
+* The default report tags to remove can be overridden by a custom tsv-format commands file, the location of which should be specified by `--commands_file`.  An example of the format of one such file is given in `examples/example_commands_config.tsv` (where a `Value` of 0 means the tag will be removed and a value of 1 means the tag will be retained within report records).
+* Adding the tag `--just_remove` followed by a list of comma-separated report tags (e.g. `Journal,Abstract,URL,...`) will remove just these tags from the report.
+* Adding the tag `--also_remove` followed by a list of comma-separated report tags (e.g. `Journal,Abstract,URL,...`) will remove these tags from the report, apart from the default values.
+* Adding the tag `--override_defaults` will save report commands used in this call as the defaults for future calls.
 
 Alternatively, the `report_manipulator` package can be imported and used directly in Python.
 
 Tested using Python 3.6+.
+
+### Example
+To test correct functionality, run the following command from the repo root directory which uses the provided example Zotero report:
+
+`zotero_clean examples/example_report.html examples/edited_report.html --commands_file examples/example_commands_config.tsv`
+
+This command should produce the file `edited_report.html` containing the cleaned report in the examples directory.
 
 Deploying To Google Cloud Run
 -----------------------------
@@ -59,7 +70,11 @@ Once deployed, the app exposes the following URLs:
 
 Local Testing
 -------------
-The file `tests/main_tests.py` contains a Python file which can be used for directly testing out both the Python function and the Cloud Run API.
+The file `tests/main_tests.py` contains a Python file which can be used for directly testing out both the Python functions and the Cloud Run API.
+
+Updating
+-------------
+After updating the repo (`git pull`), update the command-line interface using `pip install --editable .` at the repo root directory. 
 
 Further Development
 -------------------
