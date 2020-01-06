@@ -13,11 +13,12 @@ from report_manipulator.html_manipulator import HtmlManipulator
 @click.option("--override_defaults", default=False, is_flag=True,
               help='Setting this flag will override the default commands with those specified in this call.')
 @click.option("--just_remove", default=None,
-              help='Specify the only tags to be removed from the report.  Comma-separate each tag e.g. Name,Author,... '
+              help='Specify the only tags to be removed from the report.  '
+                   'Comma-separate each tag and replace spaces with underscores e.g. Name,Author,Date_Added,... '
                    'If both present, *just_remove* takes priority over *commands_file*.')
 @click.option("--also_remove", default=None,
               help='Specify additional tags to remove, apart from the defaults.'
-                   ' Comma-separate each tag e.g. Name,Author,...')
+                   ' Comma-separate each tag and replace spaces with underscores e.g. Name,Author,Date_Added,...')
 @click.argument('report', type=click.Path(exists=True))
 @click.argument('output', type=click.Path())
 def convert(report, output, enforce_one_line_authors, commands_file, override_defaults, just_remove, also_remove):
@@ -34,12 +35,12 @@ def convert(report, output, enforce_one_line_authors, commands_file, override_de
 
     # Specify changes to commands
     if just_remove is not None:
-        editor.field_commands = {command: 0 for command in just_remove.split(',')}
+        editor.field_commands = {command: 0 for command in just_remove.replace('_', ' ').split(',')}
     elif commands_file is not None:
         editor.field_commands = editor.read_commands_config(commands_file)
 
     if also_remove is not None:
-        for command in also_remove.split(','):
+        for command in also_remove.replace('_', ' ').split(','):
             editor.add_field_command(command, False)
 
     # Perform conversion
@@ -49,5 +50,3 @@ def convert(report, output, enforce_one_line_authors, commands_file, override_de
     # Override default commands if specified
     if override_defaults:
         editor.save_commands_config(editor.field_commands)
-
-

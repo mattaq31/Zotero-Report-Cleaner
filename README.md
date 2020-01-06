@@ -32,8 +32,8 @@ Where:
 * `OUTPUT` - Location to save final edited report (also in HTML format).
 * Adding the tag `--enforce_one_line_authors` will deactivate placing all authors on one line.
 * The default report tags to remove can be overridden by a custom tsv-format commands file, the location of which should be specified by `--commands_file`.  An example of the format of one such file is given in `examples/example_commands_config.tsv` (where a `Value` of 0 means the tag will be removed and a `Value` of 1 means the tag will be retained within report records).
-* Adding the tag `--just_remove` followed by a list of comma-separated report tags (e.g. `Journal,Abstract,URL,...`) will remove just these tags from the report.
-* Adding the tag `--also_remove` followed by a list of comma-separated report tags (e.g. `Journal,Abstract,URL,...`) will remove these tags from the report, in addition to the default values.
+* Adding the tag `--just_remove` followed by a list of comma-separated report tags (e.g. `Journal,Abstract,URL,...`) will remove just these tags from the report.  Replace spaces with underscores e.g. `Date_Added` not `Date Added`.
+* Adding the tag `--also_remove` followed by a list of comma-separated report tags (e.g. `Journal,Abstract,URL,...`) will remove these tags from the report, in addition to the default values.  Replace spaces with underscores e.g. `Date_Added` not `Date Added`.
 * Adding the tag `--override_defaults` will save report commands used in this call as the defaults for future calls.
 
 Alternatively, the `report_manipulator` package can be imported and used directly in Python.
@@ -47,9 +47,9 @@ To test correct functionality, run the following command from the repo root dire
 
 This command should produce the file `edited_report.html` containing the cleaned report in the examples directory.
 
-An example of using the `just_remove` option is as follows (currently does not work with tags containing a space in their name e.g. `Book Title`):
+An example of using the `just_remove` option is as follows:
 
-`zotero_clean examples/example_report.html examples/edited_report.html --just_remove Editor,Pages,Modified`
+`zotero_clean examples/example_report.html examples/edited_report.html --just_remove Editor,Pages,Modified,Date_Added`
 
 Deploying To Google Cloud Run
 -----------------------------
