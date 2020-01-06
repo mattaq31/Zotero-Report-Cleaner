@@ -19,7 +19,7 @@ Activate your preferred Python (3.x) environment and run the following commands 
 1. `pip install -r requirements.txt` (The main dependencies are [`click`](https://click.palletsprojects.com/en/7.x/), [`beautifulsoup`](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) and [`lxml`](https://lxml.de))
 2. `pip install --editable .`
 
-Once installed, the interface can be used from any location on your computer.  
+Once installed, the interface can be used from any location on your computer.  Works on Windows, Mac or Linux.  
 ### Usage
 
 First, generate your Zotero report directly from the Zotero app by following [this](https://www.zotero.org/support/reports#%20sort_order) guide.  Then, the command-line interface can be used by running the command:
