@@ -1,6 +1,6 @@
 Zotero Report Cleaner
 ==============================
-CI here
+https://travis-ci.org/mattaq31/Zotero-Report-Cleaner.svg?branch=master
 
 What Is This?
 -------------
