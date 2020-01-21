@@ -10,6 +10,7 @@ setup(
     entry_points='''
         [console_scripts]
         zotero_clean=main:convert
+        make_index=main:index_reports
     ''',
 )
 

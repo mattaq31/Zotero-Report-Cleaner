@@ -2,6 +2,18 @@
 
 import click
 from report_manipulator.html_manipulator import HtmlManipulator
+from report_manipulator.index_maker import IndexMaker
+
+
+@click.command()
+@click.argument('root_directory', type=click.Path())
+def index_reports(root_directory):
+    """Creates index files for easy navigation between report folders.
+
+    ROOT_DIRECTORY is the path to the root folder to create indexes within
+    """
+    index_maker = IndexMaker(root_directory)
+    index_maker.generate_contents()
 
 
 @click.command()

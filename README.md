@@ -81,6 +81,18 @@ Updating
 -------------
 After updating the repo (`git pull`), update the command-line interface using `pip install --editable .` at the repo root directory. 
 
+Additional Functionality: Making Indices
+----------------------------------------
+An additional feature within this repo allows one to create index html files which provide buttons for quickly displaying available reports to users.
+
+To use this functionality (make sure to install first, as described previously):
+
+`index_maker ROOT_DIRECTORY`
+
+Where `ROOT_DIRECTORY` is the file path to the root folder containing your reports.
+
+Further info/examples coming soon.
+
 Further Development
 -------------------
 Open to suggestions/improvements.
