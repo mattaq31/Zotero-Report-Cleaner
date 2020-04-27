@@ -9,3 +9,4 @@ install:
   - pip install --editable .
 script:
   - zotero_clean examples/example_report.html examples/edited_report.html --just_remove Editor,Pages,Modified,Date_Added
+  - make_index 'examples/Index Example'

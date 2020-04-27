@@ -7,7 +7,7 @@ class IndexMaker:
 
     def __init__(self, main_dir):
 
-        self.exclude = ['.DS_Store', 'contents.html']
+        self.exclude = ['.DS_Store', 'landing_page.html']
         self.main_dir = main_dir
         base_dir = open(path.dirname(path.abspath(__file__)) + '/baseline.html')
         self.base_html = BeautifulSoup(base_dir, 'lxml')
@@ -23,19 +23,20 @@ class IndexMaker:
 
             if len(titles) == 0:
                 continue
-            if len(titles) == 1:  # fixing a display issue
-                local_html.style.string = local_html.style.string.replace('width: 50%', 'width: 100%')
 
-            page_title = location.split('/')[-1] + ' Reports'  # setting standard title
+            page_title = location.split('/')[-1]  # setting standard title
             local_html.title.string = page_title
             local_html.find("h1").string = page_title
 
             button_loc = local_html.find("div", class_="btn-group")  # button area
 
+            display_fix = False
             for title in titles:
                 display_title = title.split('.html')[0]  # differentiates between folders and files
+                if len(display_title) > 42:
+                    display_fix = True
                 if '.html' not in title and '.pdf' not in title:
-                    link_title = title + '/contents.html'
+                    link_title = title + '/landing_page.html'
                 else:
                     link_title = title
                 # attach a new tag per item
@@ -44,5 +45,8 @@ class IndexMaker:
 
                 button_loc.append(new_tag)
 
-            with open(location+'/contents.html', "w") as file:
+            if display_fix or len(titles) == 1:
+                local_html.style.string = local_html.style.string.replace('width: 70%', 'width: 100%')
+
+            with open(location+'/landing_page.html', "w") as file:
                 file.write(str(local_html.prettify()))

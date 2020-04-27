@@ -81,17 +81,17 @@ Updating
 -------------
 After updating the repo (`git pull`), update the command-line interface using `pip install --editable .` at the repo root directory. 
 
-Additional Functionality: Making Indices
+Additional Functionality: Making HTML Indices
 ----------------------------------------
 An additional feature within this repo allows one to create index html files which provide buttons for quickly displaying available reports to users.
 
 To use this functionality (make sure to install first, as described previously):
 
-`index_maker ROOT_DIRECTORY`
+`make_index ROOT_DIRECTORY`
 
-Where `ROOT_DIRECTORY` is the file path to the root folder containing your reports.
+Where `ROOT_DIRECTORY` is the file path to the root folder containing your reports.  Make sure to enclose this in ' ' if the file path contains a space.
 
-Further info/examples coming soon.
+Run `make_index 'examples/Index Example'` to have an example index generated in the examples location.
 
 Further Development
 -------------------
