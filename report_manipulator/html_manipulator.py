@@ -93,16 +93,24 @@ class HtmlManipulator:
 
         for main_item in entry_list:  # tbody division used to locate each report entry
             authors = ''
-            for data_container in main_item.children:
+            data_containers = list(main_item.children)  # for some reason BeautifulSoup skips some children unless you explicitly convert them to a list first...
+            for data_container in data_containers:
                 if data_container != '\n':
-                    label = data_container.th.get_text()  # Th tag contains field type
+
+                    # for some reason some Zotero report formats have multiple th tags.  This attempts to deal with this by running through them all.
+                    for th_container in data_container.find_all('th'):
+                        label = th_container.get_text()
+                        if label != '':
+                            break
+
+                    # Th tag contains field type
                     if label in self.field_commands and not self.field_commands[label]:
                         # Remove field if label not in accepted list
                         data_container.extract()
-                    elif label == 'Author' and self.one_line_authors:  # Collects authors and places them in one string
+                    elif (label == 'Author' or label == ' Author ') and self.one_line_authors:  # Collects authors and places them in one string
                         if authors == '':
                             authors += data_container.td.get_text()
-                            data_container.th.string.replace_with('Authors')
+                            th_container.string.replace_with('Authors')
                             data_container.td['id'] = 'author'
                         else:
                             authors += ', %s' % data_container.td.get_text()
