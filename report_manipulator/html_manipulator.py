@@ -87,7 +87,11 @@ class HtmlManipulator:
         if self.report_html is None:  # No report provided
             return False
 
-        for main_item in self.report_html.find_all('tbody'):  # tbody division used to locate each report entry
+        entry_list = self.report_html.find_all('tbody')
+        if len(entry_list) == 0:
+            entry_list = self.report_html.find_all('table')  # in later versions of Zotero, reports are not wrapped in tbody
+
+        for main_item in entry_list:  # tbody division used to locate each report entry
             authors = ''
             for data_container in main_item.children:
                 if data_container != '\n':

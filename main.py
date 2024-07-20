@@ -62,3 +62,9 @@ def convert(report, output, enforce_one_line_authors, commands_file, override_de
     # Override default commands if specified
     if override_defaults:
         editor.save_commands_config(editor.field_commands)
+
+
+if __name__ == '__main__':
+    import sys
+    convert(sys.argv[1:])  # for use when debugging with pycharm
+

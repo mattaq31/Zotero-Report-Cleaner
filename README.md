@@ -1,8 +1,5 @@
 Zotero Report Cleaner
 ==============================
-[![Build Status](https://travis-ci.org/mattaq31/Zotero-Report-Cleaner.svg?branch=master
-)](https://travis-ci.org/mattaq31/Zotero-Report-Cleaner)
-
 What Is This?
 -------------
 
