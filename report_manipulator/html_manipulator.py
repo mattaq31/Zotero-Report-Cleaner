@@ -107,7 +107,7 @@ class HtmlManipulator:
                     if label in self.field_commands and not self.field_commands[label]:
                         # Remove field if label not in accepted list
                         data_container.extract()
-                    elif (label == 'Author' or label == ' Author ') and self.one_line_authors:  # Collects authors and places them in one string
+                    elif (label == 'Author') and self.one_line_authors:  # Collects authors and places them in one string
                         if authors == '':
                             authors += data_container.td.get_text()
                             th_container.string.replace_with('Authors')
@@ -118,5 +118,17 @@ class HtmlManipulator:
 
             if authors != '':  # Injects collected authors into one Author tag
                 main_item.find(id='author').string.replace_with(authors)
+
+
+        # also applies the removal operation to tags that trail after each table entry
+        entry_subtitle_list = self.report_html.find_all('h3')
+        subtitle_class_list = []
+        for entry_subtitle in entry_subtitle_list:
+            subtitle_class_list.extend(entry_subtitle.get('class'))
+
+        for query_class in subtitle_class_list:
+            if query_class in self.field_commands and not self.field_commands[query_class]:
+                for deletion_tag in self.report_html.find_all(class_=query_class):
+                    deletion_tag.extract()
 
         return True
