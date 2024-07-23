@@ -32,7 +32,7 @@ class HtmlManipulator:
         :param input_loc: location of Zotero HTML report to read
         :return: None
         """
-        self.parse_html(open(input_loc, "r"))
+        self.parse_html(open(input_loc, "rb"))
 
     def parse_html(self, data):
         """
@@ -47,7 +47,7 @@ class HtmlManipulator:
         Saves current HTML report to file.
         :return: None
         """
-        with open(self.output_dir, "w") as file:
+        with open(self.output_dir, "w", encoding="utf-8") as file:
             file.write(str(self.report_html.prettify()))
 
     def save_commands_config(self, data: dict):
